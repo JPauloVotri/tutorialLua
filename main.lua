@@ -86,7 +86,6 @@ function love.draw()
   love.graphics.draw(player.image, player.x, player.y, 0)
 
   for _,e in pairs(enemies_controller.enemies) do
-    love.graphics.rectangle("fill", e.x, e.y, e.width, e.height)
     love.graphics.draw(enemies_controller.image, e.x, e.y, 0)
   end
 
