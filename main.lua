@@ -47,6 +47,10 @@ function love.update(dt)
     player.fire()
   end
 
+  if love.keyboard.isDown("escape") then
+    love.event.quit()
+  end
+
   if #enemies_controller.enemies == 0 then
     -- The player win
     game_win = true
