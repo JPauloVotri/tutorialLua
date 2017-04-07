@@ -1,12 +1,8 @@
 require "classes/particles"
 require "classes/player"
+require "classes/enemies"
 
 love.graphics.setDefaultFilter('nearest', 'nearest')
-
-enemy                      = {}
-enemies_controller         = {}
-enemies_controller.enemies = {}
-enemies_controller.image   = love.graphics.newImage("images/enemy.png")
 
 
 function checkCollisions(enemies, bullets)
@@ -33,30 +29,6 @@ function love.load()
 
   for i=0, 10 do
     enemies_controller:spawnEnemy(i*15, 0)
-  end
-end
-
-
-function enemies_controller:spawnEnemy(x, y)
-  enemy          = {}
-  enemy.x        = x
-  enemy.y        = y
-  enemy.width    = 10
-  enemy.height   = 10
-  enemy.bullets  = {}
-  enemy.cooldown = 40
-  enemy.speed    = 0.01
-  table.insert(self.enemies, enemy)
-end
-
-
-function enemy:fire()
-  if self.cooldown <= 0 then
-    self.cooldown = 40
-    bullet        = {}
-    bullet.x      = self.x + 7
-    bullet.y      = self.y
-    table.insert(self.bullets, bullet)
   end
 end
 
