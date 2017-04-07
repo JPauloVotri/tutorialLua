@@ -2,7 +2,7 @@ love.graphics.setDefaultFilter('nearest', 'nearest')
 
 particle_systems      = {}
 particle_systems.list = {}
-particle_systems.img  = love.graphics.newImage('particle.png')function particle_systems:spawn(x, y)
+particle_systems.img  = love.graphics.newImage('images/particle.png')function particle_systems:spawn(x, y)
   local ps = {}
   ps.x     = x
   ps.y     = y

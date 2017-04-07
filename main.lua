@@ -6,7 +6,7 @@ love.graphics.setDefaultFilter('nearest', 'nearest')
 enemy                      = {}
 enemies_controller         = {}
 enemies_controller.enemies = {}
-enemies_controller.image   = love.graphics.newImage("enemy.png")
+enemies_controller.image   = love.graphics.newImage("images/enemy.png")
 
 
 function checkCollisions(enemies, bullets)
@@ -22,14 +22,14 @@ end
 
 
 function love.load()
-  local music = love.audio.newSource("music.mp3")
+  local music = love.audio.newSource("audio/music.mp3")
   music:setLooping(true)
   love.audio.play(music)
 
   game_over = false
   game_win  = false
   
-  background_image = love.graphics.newImage('background.png')
+  background_image = love.graphics.newImage('images/background.png')
 
   for i=0, 10 do
     enemies_controller:spawnEnemy(i*15, 0)
