@@ -1,6 +1,10 @@
 require "classes/particles"
-require "classes/player"
-require "classes/enemies"
+local player = require "classes/player"
+local enemy  = require("classes/enemies")
+
+enemies = {}
+
+player = player:new(0, 110, 10, 10, 0.2)
 
 love.graphics.setDefaultFilter('nearest', 'nearest')
 
@@ -28,14 +32,15 @@ function love.load()
   background_image = love.graphics.newImage('images/background.png')
 
   for i=0, 10 do
-    enemies_controller:spawnEnemy(i*15, 0)
+    table.insert(enemies, enemy:new(i*15, 0, 10, 10, 0.02))
+    print("inimigo adicionado!")
   end
 end
 
 
 function love.update(dt)
   particle_systems:update(dt)
-  player.cooldown = player.cooldown - 1
+  player:setCooldown(-1, true)
 
   if love.keyboard.isDown("right") then
     player.x = player.x + player.speed
@@ -44,19 +49,19 @@ function love.update(dt)
   end
 
   if love.keyboard.isDown("space") then
-    player.fire()
+    player:fire()
   end
 
   if love.keyboard.isDown("escape") then
     love.event.quit()
   end
 
-  if #enemies_controller.enemies == 0 then
+  if #enemies == 0 then
     -- The player win
     game_win = true
   end
 
-  for _,e in pairs(enemies_controller.enemies) do
+  for _,e in pairs(enemies) do
     if e.y >= love.graphics.getHeight()/5 then
       game_over = true
     end
@@ -70,7 +75,7 @@ function love.update(dt)
     b.y = b.y - 0.5
   end
 
-  checkCollisions(enemies_controller.enemies, player.bullets)
+  checkCollisions(enemies, player.bullets)
 end
 
 
@@ -89,8 +94,8 @@ function love.draw()
   -- Draw the player
   love.graphics.draw(player.image, player.x, player.y, 0)
 
-  for _,e in pairs(enemies_controller.enemies) do
-    love.graphics.draw(enemies_controller.image, e.x, e.y, 0)
+  for _,e in pairs(enemies) do
+    love.graphics.draw(e.image, e.x, e.y, 0)
   end
 
   -- Draw the bullets
