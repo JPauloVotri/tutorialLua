@@ -1,6 +1,6 @@
-require "classes/particles"
-local player = require "classes/player"
-local enemy  = require("classes/enemies")
+require "scripts/particles"
+local player = require "scripts/player"
+local enemy  = require("scripts/enemies")
 
 enemies = {}
 
