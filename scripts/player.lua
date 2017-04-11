@@ -2,10 +2,15 @@ HC = require("scripts.HC")
 bullet = require("scripts.bullet")
 
 local player      = {}
-player.cooldown   = 0
 player.bullets    = {}
 player.image      = love.graphics.newImage("images/player.png")
 player.fire_sound = love.audio.newSource("audio/Laser_Shoot2.wav")
+player.cooldown   = 0
+player.width      = player.image:getWidth()
+player.height     = player.image:getHeight()
+
+local screen_width = love.graphics.getWidth() / 5
+local screen_height = love.graphics.getHeight() / 5
 
 function player:new(x, y, width, height, speed)
   return setmetatable({
@@ -25,12 +30,21 @@ end
 
 function player:update(dt)
   self.x, self.y = self.body:bbox()
+  self.cx, self.cy = self.body:center()
   self:setCooldown(-1, true)
 
   if love.keyboard.isDown("right") then
-    self.body:move(self.speed*dt,0)
+    if self.x < screen_width-self.width then
+      self.body:move(self.speed*dt,0)
+    else
+      self.body:moveTo(screen_width-(self.width/2), self.cy)
+    end
   elseif love.keyboard.isDown("left") then
-    self.body:move(-self.speed*dt,0)
+    if self.x > 0 then
+      self.body:move(-self.speed*dt,0)
+    else
+      self.body:moveTo(self.width/2, self.cy)
+    end
   end
 
   if love.keyboard.isDown("space") then
