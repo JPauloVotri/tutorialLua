@@ -15,7 +15,7 @@ function checkCollisions(enemies, bullets)
       if e.body:collidesWith(b.body) then
         table.remove(enemies, i)
         table.remove(player.bullets, j)
-        particle_systems:spawn(e.x, e.y)
+        particle_systems:spawn(e.cx, e.cy)
       end
     end
   end

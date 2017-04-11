@@ -9,10 +9,11 @@ function particle_systems:spawn(x, y)
   ps.x     = x
   ps.y     = y
   ps.ps    = love.graphics.newParticleSystem(particle_systems.img, 32)
-  ps.ps:setParticleLifetime(2, 4)
+  ps.ps:setParticleLifetime(0.2, 0.4)
+  ps.ps:setEmitterLifetime(0.5)
   ps.ps:setEmissionRate(5)
   ps.ps:setSizeVariation(1)
-  ps.ps:setLinearAcceleration(-20, -20, 20, 20)
+  ps.ps:setLinearAcceleration(-400, -400, 400, 400)
   ps.ps:setColors(100, 255, 100, 100, 0, 255, 0, 255)
   table.insert(particle_systems.list, ps)
 end
@@ -29,9 +30,4 @@ function particle_systems:update(dt)
   for _,v in pairs(particle_systems.list) do
     v.ps:update(dt)
   end
-end
-
-
-function particle_systems:cleanup()
-  
 end
